@@ -1,0 +1,24 @@
+apply plugin: 'groovy'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
+  compile localGroovy()
+}
+
+def inheritedSystemProperties = [:]
+System.properties.each { name, value ->
+  if( name =~ /.*proxy.*/ ) {
+    inheritedSystemProperties[name] = value
+  }
+}
+
+task run (dependsOn: 'classes', type: JavaExec) {
+    main = 'prototype'
+    classpath = sourceSets.main.runtimeClasspath
+	args = [configFileLocation]
+	systemProperties += inheritedSystemProperties
+}
