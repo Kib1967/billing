@@ -16,8 +16,30 @@ System.properties.each { name, value ->
   }
 }
 
-task run (dependsOn: 'classes', type: JavaExec) {
-    main = 'prototype'
+task runBilling (dependsOn: 'classes', type: JavaExec) {
+    main = 'billing'
+    classpath = sourceSets.main.runtimeClasspath
+	args = [configFileLocation]
+	systemProperties += inheritedSystemProperties
+}
+
+task runReconcile (dependsOn: 'classes', type: JavaExec) {
+    main = 'reconcile'
+    classpath = sourceSets.main.runtimeClasspath
+	args = [configFileLocation]
+	systemProperties += inheritedSystemProperties
+}
+
+task runFlexibleReconcile (dependsOn: 'classes', type: JavaExec) {
+    main = 'flexibleReconcile'
+    classpath = sourceSets.main.runtimeClasspath
+	args = [configFileLocation]
+	systemProperties += inheritedSystemProperties
+}
+
+
+task runTestJira (dependsOn: 'classes', type: JavaExec) {
+    main = 'testJira'
     classpath = sourceSets.main.runtimeClasspath
 	args = [configFileLocation]
 	systemProperties += inheritedSystemProperties
